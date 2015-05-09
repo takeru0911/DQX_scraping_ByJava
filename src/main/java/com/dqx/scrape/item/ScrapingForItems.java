@@ -1,10 +1,8 @@
 package com.dqx.scrape.item;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +66,7 @@ public class ScrapingForItems implements ScrapingDQX{
 	}
 	private void extractDate(Element el){
 		String text = el.text();
-		_date = text.split("Åi")[1].split("Åj")[0].replaceAll(" ", "").replaceAll("éû", "").replaceAll("/", "") + "0000";
+		_date = text.split("Ôºà")[1].split("Ôºâ")[0].replaceAll(" ", "").replaceAll("ÊôÇ", "").replaceAll("/", "") + "0000";
 	}
 
 	private boolean createItemMarketData(Element el, ItemMarketData data){
@@ -95,8 +93,8 @@ public class ScrapingForItems implements ScrapingDQX{
 			Elements els = el.select(".star");
 			if(els.size() != 0){
 				String starString = els.text();
-				//ÅöÇÃêîÇÉJÉEÉìÉg
-				numOfStar = Math.abs(3 - (starString.length() - starString.replace("Åö", "").length()));
+				//counting num of star
+				numOfStar = Math.abs(3 - (starString.length() - starString.replace("‚òÖ", "").length()));
 			}
 		}else {
 			Elements n2s = el.select(".n2");
@@ -104,7 +102,7 @@ public class ScrapingForItems implements ScrapingDQX{
 
 			}else {
 				Element n2 = n2s.get(0);
-				if(n2.text().equals("ÅöÅöÅö")){
+				if(n2.text().equals("‚òÖ‚òÖ‚òÖ")){
 					numOfStar = 3;
 				}
 			}
@@ -136,20 +134,14 @@ public class ScrapingForItems implements ScrapingDQX{
 
 		}else{
 			Element n2 = n2s.get(0);
-			String exhibitStr = n2.text().indexOf(" ") == -1 ? "-1": n2.text().split(" ")[0];
-			exhibits = Integer.parseInt(exhibitStr);
+			try{
+				String exhibitStr = n2.text().indexOf(" ") == -1 ? "-1": n2.text().split(" ")[0];
+				exhibits = Integer.parseInt(exhibitStr);
+			}catch(Exception e){
+				exhibits = -1;
+			}
 		}
 
 		return exhibits;
 	}
-	public static void main(String[] args){
-		try {
-			List<MarketData> result = new ScrapingForItems("takeru", 11).scrape(new URL("http://grooowl.com/r/dqx/bazaar_list_histories/history2/596/2015-05"), null, null);
-			result.forEach(data -> System.out.println(((ItemMarketData)data).toString()));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 }

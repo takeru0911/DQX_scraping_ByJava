@@ -1,7 +1,5 @@
 package com.dqx.scrape;
 
-import java.util.Date;
-
 public abstract class MarketData {
 	protected int _id = -1;
 	protected long _price = -1;

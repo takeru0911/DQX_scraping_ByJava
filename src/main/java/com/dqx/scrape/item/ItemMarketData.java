@@ -1,7 +1,5 @@
 package com.dqx.scrape.item;
 
-import java.util.Date;
-
 import com.dqx.scrape.MarketData;
 
 public class ItemMarketData extends MarketData{

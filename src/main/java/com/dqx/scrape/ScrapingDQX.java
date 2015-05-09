@@ -1,7 +1,6 @@
 package com.dqx.scrape;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.List;
 
 public interface ScrapingDQX {
