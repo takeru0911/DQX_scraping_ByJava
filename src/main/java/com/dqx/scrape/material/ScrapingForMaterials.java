@@ -1,6 +1,7 @@
 package com.dqx.scrape.material;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,10 @@ public class ScrapingForMaterials implements ScrapingDQX{
 						createMaterialMarketData(el);
 
 						if(_data.checkRequire()){
-							this._scrapeData.add(_data);
-							_data = null;
+							if(Long.parseLong(_data.get_date()) > Long.parseLong(startDate) && Long.parseLong(_data.get_date()) < Long.parseLong(endDate)){
+								this._scrapeData.add(_data);
+								_data = null;
+							}
 						}
 					}
 				});
@@ -114,5 +117,10 @@ public class ScrapingForMaterials implements ScrapingDQX{
 			}
 		});
 
+	}
+
+	public static void main(String[] args) throws MalformedURLException {
+		List<MarketData> datas = new ScrapingForMaterials("takeru", 3).scrape(new URL("http://grooowl.com/r/dqx/bazaar_list_histories/history2/2395/2015-04/0"), "150421000000", "150428000000");
+		datas.forEach(System.out::println);
 	}
 }

@@ -46,8 +46,10 @@ public class ScrapingForItems implements ScrapingDQX{
 					boolean isStar = createItemMarketData(el, data);
 					if(data != null){
 						if(data.checkRequire()){
-							this._scrapeData.add(data);
-							data = new ItemMarketData(_id, -1, _date, -1, _itemName, -1);
+							if(Long.parseLong(data.get_date()) > Long.parseLong(startDate) && Long.parseLong(data.get_date()) < Long.parseLong(endDate)){
+								this._scrapeData.add(data);
+								data = new ItemMarketData(_id, -1, _date, -1, _itemName, -1);
+							}
 						}
 						if(isStar){
 							int numOfStar = ((ItemMarketData)data).get_Star();

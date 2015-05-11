@@ -9,5 +9,29 @@
   		<artifactId>jsoup</artifactId>
   		<version>1.8.2</version>
   	</dependency>
+  	<dependency>
+  		<groupId>edu.uci.ics</groupId>
+  		<artifactId>crawler4j</artifactId>
+  		<version>4.1</version>
+  	</dependency>
+  	<dependency>
+		<groupId>commons-dbutils</groupId>
+		<artifactId>commons-dbutils</artifactId>
+		<version>1.6</version>
+	</dependency>
+	 <!-- OJDBC6用 Maven Centralから持ってこれないので以下のコマンドを実行 -->
+    <!-- ローカルのjarをローカルMavenリポジトリに入れる -->
+    <!-- mvn install:install-file -Dfile=ojdbc6.jar -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar -->
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>11.2.0</version>
+    </dependency>
+    <dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.35</version>
+	</dependency>
+
   </dependencies>
 </project>
